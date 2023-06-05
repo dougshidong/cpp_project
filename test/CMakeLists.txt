@@ -9,7 +9,7 @@ project(
   LANGUAGES CXX
 )
 
-verbose_message("Adding tests under ${CMAKE_PROJECT_NAME}Tests...")
+message("Adding tests under ${CMAKE_PROJECT_NAME}Tests...")
 
 foreach(file ${test_sources})
   string(REGEX REPLACE "(.*/)([a-zA-Z0-9_ ]+)(\.cpp)" "\\2" test_name ${file}) 
@@ -25,10 +25,11 @@ foreach(file ${test_sources})
   # Setup code coverage if enabled
   #
 
+  message(STATUS "Code coverage is enabled: ${${CMAKE_PROJECT_NAME}_ENABLE_CODE_COVERAGE}")
   if (${CMAKE_PROJECT_NAME}_ENABLE_CODE_COVERAGE)
     target_compile_options(${CMAKE_PROJECT_NAME} PUBLIC -O0 -g -fprofile-arcs -ftest-coverage)
     target_link_options(${CMAKE_PROJECT_NAME} PUBLIC -fprofile-arcs -ftest-coverage)
-    verbose_message("Code coverage is enabled and provided with GCC.")
+    message("Code coverage is enabled and provided with GCC.")
   endif()
 
   #
@@ -81,4 +82,4 @@ foreach(file ${test_sources})
   )
 endforeach()
 
-verbose_message("Finished adding unit tests for ${CMAKE_PROJECT_NAME}.")
+message("Finished adding unit tests for ${CMAKE_PROJECT_NAME}.")
