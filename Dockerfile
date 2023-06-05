@@ -26,9 +26,9 @@ RUN apt install -y \
 RUN echo "Installing dependencies not found in the package repos..."
 
 RUN apt install -y wget tar build-essential libssl-dev && \
-			wget https://github.com/Kitware/CMake/releases/download/v3.15.0/cmake-3.15.0.tar.gz && \
-			tar -zxvf cmake-3.15.0.tar.gz && \
-			cd cmake-3.15.0 && \
+			wget https://github.com/Kitware/CMake/releases/download/v3.26.4/cmake-3.26.4.tar.gz && \
+			tar -zxvf cmake-3.26.4.tar.gz && \
+			cd cmake-3.26.4 && \
 			./bootstrap && \
 			make && \
 			make install 
@@ -41,7 +41,7 @@ RUN git clone https://github.com/catchorg/Catch2.git && \
 		 cmake --build build/ --target install
 
 # Disabled pthread support for GTest due to linking errors
-RUN git clone https://github.com/google/googletest.git --branch release-1.10.0 && \
+RUN git clone https://github.com/google/googletest.git --branch release-1.12.1 && \
         cd googletest && \
         cmake -Bbuild -Dgtest_disable_pthreads=1 && \
         cmake --build build --config Release && \
