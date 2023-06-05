@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.15)
 #
 
 project(
-  "Project"
+  "cpp_project"
   VERSION 0.1.0
   LANGUAGES CXX
 )
@@ -65,9 +65,9 @@ if(${PROJECT_NAME}_BUILD_EXECUTABLE)
   add_executable(${PROJECT_NAME} ${exe_sources})
 
   if(${PROJECT_NAME}_VERBOSE_OUTPUT)
-    verbose_message("Found the following sources:")
+    message(VERBOSE "Found the following sources:")
     foreach(source IN LISTS exe_sources)
-      verbose_message("* ${source}")
+      message(VERBOSE "* ${source}")
     endforeach()
   endif()
 
@@ -75,9 +75,9 @@ if(${PROJECT_NAME}_BUILD_EXECUTABLE)
     add_library(${PROJECT_NAME}_LIB ${headers} ${sources})
 
     if(${PROJECT_NAME}_VERBOSE_OUTPUT)
-      verbose_message("Found the following headers:")
+      message(VERBOSE "Found the following headers:")
       foreach(header IN LISTS headers)
-        verbose_message("* ${header}")
+        message(VERBOSE "* ${header}")
       endforeach()
     endif()
   endif()
@@ -85,9 +85,9 @@ elseif(${PROJECT_NAME}_BUILD_HEADERS_ONLY)
   add_library(${PROJECT_NAME} INTERFACE)
 
   if(${PROJECT_NAME}_VERBOSE_OUTPUT)
-    verbose_message("Found the following headers:")
+    message(VERBOSE "Found the following headers:")
     foreach(header IN LIST headers)
-      verbose_message("* ${header}")
+      message(VERBOSE "* ${header}")
     endforeach()
   endif()
 else()
@@ -98,13 +98,13 @@ else()
   )
 
   if(${PROJECT_NAME}_VERBOSE_OUTPUT)
-    verbose_message("Found the following sources:")
+    message(VERBOSE "Found the following sources:")
     foreach(source IN LISTS sources)
-      verbose_message("* ${source}")
+      message(VERBOSE "* ${source}")
     endforeach()
-    verbose_message("Found the following headers:")
+    message(VERBOSE "Found the following headers:")
     foreach(header IN LISTS headers)
-      verbose_message("* ${header}")
+      message(VERBOSE "* ${header}")
     endforeach()
   endif()
 endif()
@@ -144,7 +144,7 @@ endif()
 include(cmake/CompilerWarnings.cmake)
 set_project_warnings(${PROJECT_NAME})
 
-verbose_message("Applied compiler warnings. Using standard ${CMAKE_CXX_STANDARD}.\n")
+message(VERBOSE "Applied compiler warnings. Using standard ${CMAKE_CXX_STANDARD}.\n")
 
 #
 # Enable Doxygen
@@ -187,7 +187,7 @@ include(cmake/Doxygen.cmake)
 # and letting CMake decide how to link with it.
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
 
-verbose_message("Successfully added all dependencies and linked against them.")
+message(VERBOSE "Successfully added all dependencies and linked against them.")
 
 #
 # Set the build/user include directories
@@ -234,7 +234,7 @@ else()
   add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 endif()
 
-verbose_message("Project is now aliased as ${PROJECT_NAME}::${PROJECT_NAME}.\n")
+message(VERBOSE "Project is now aliased as ${PROJECT_NAME}::${PROJECT_NAME}.\n")
 
 #
 # Format the project using the `clang-format` target (i.e: cmake --build build --target clang-format)
@@ -303,7 +303,7 @@ install(
   include
 )
 
-verbose_message("Install targets successfully built. Install with `cmake --build <build_directory> --target install --config <build_config>`.")
+message(VERBOSE "Install targets successfully built. Install with `cmake --build <build_directory> --target install --config <build_config>`.")
 
 #
 # Quick `ConfigVersion.cmake` creation
